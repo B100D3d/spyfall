@@ -15,7 +15,7 @@
                 document.querySelector("html").dataset.theme = this.theme
             },
             setCookie() {
-                document.cookie = `theme=${ this.theme }`
+                document.cookie = `theme=${ this.theme }; expires=Fri, 31 Dec 9999 23:59:59 GMT`
             },
             setTheme() {
                 this.theme = this.theme === "light" ? "dark" : "light"

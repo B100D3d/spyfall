@@ -39,7 +39,6 @@ export default {
         height: 100vh
         -webkit-font-smoothing: antialiased
         -moz-osx-font-smoothing: grayscale
-        color: white
         background-color: var(--background-color)
         transition: background-color .5s linear
 </style>
