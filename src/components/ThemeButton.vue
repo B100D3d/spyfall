@@ -7,7 +7,7 @@
         name: "ThemeButton",
         data() {
             return {
-                theme: this.getThemeCookie() || "light"
+                theme: this.getThemeFromCookie() || "light"
             }
         },
         methods: {
@@ -20,7 +20,7 @@
             setTheme() {
                 this.theme = this.theme === "light" ? "dark" : "light"
             },
-            getThemeCookie: () => document.cookie
+            getThemeFromCookie: () => document.cookie
                                             .split(";")
                                             .map(c => c.trim())
                                             .filter(c => c.split("=")[0] === "theme")
@@ -42,9 +42,6 @@
 <style lang="sass" scoped>
 
     button
-        position: absolute
-        right: 30px
-        top: 10px
         width: 60px
         height: 60px
         padding: 0
