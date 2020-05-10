@@ -65,10 +65,12 @@
                 const key = this.key
                 fetch("/api/encrypt", {
                     method: "POST",
-                    query: {
-                        sourceSrc,
-                        messageSrc,
-                        key
+                    body: {
+                        query: {
+                            sourceSrc,
+                            messageSrc,
+                            key
+                        }
                     }
                 })
                 .then(res => res.json())
@@ -81,10 +83,12 @@
                 const key = this.key
                 fetch("/api/decrypt", {
                     method: "POST",
-                    query: {
-                        sourceSrc,
-                        secretSrc,
-                        key
+                    body: {
+                        query: {
+                            sourceSrc,
+                            secretSrc,
+                            key
+                        }
                     }
                 })
                 .then(res => res.json())
