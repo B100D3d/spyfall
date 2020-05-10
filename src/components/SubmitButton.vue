@@ -44,7 +44,7 @@
             async handleClick() {
                 this.disableBtn()
                 try {
-                    fetch("https://localhost:8080/api/encrypt", {
+                    fetch("/api/encrypt", {
                         method: "POST",
                         body: {
                             query: "Hello!"
