@@ -1,4 +1,4 @@
 module.exports = (req, res) => {
-    console.log(req.query)
-    res.send({ data: "Hello" })
+    console.log(req.body.query)
+    res.send({ result: "Hello" })
 }

@@ -55,10 +55,9 @@
                 }
                 this.enableBtn()
             },
-            onComplete(result) {
-                console.log(result)
+            onComplete(data) {
                 this.loading = 0
-                this.result = result
+                this.result = data.result
             },
             encrypt() {
                 const sourceSrc = this.getSource().src
