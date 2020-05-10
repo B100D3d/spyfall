@@ -44,15 +44,6 @@
             async handleClick() {
                 this.disableBtn()
                 try {
-                    fetch("/api/encrypt", {
-                        method: "POST",
-                        body: {
-                            query: "Hello!"
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err))
                     if(this.check()) {
                         this.resetResult()
                         await this.showLoading()
@@ -64,11 +55,45 @@
                 }
                 this.enableBtn()
             },
+            onComplete(result) {
+                this.loading = 0
+                this.result = result
+            },
             encrypt() {
-                this.encryption.encrypt(this.getSource(), this.getMessage(), this.key)
+                const sourceSrc = this.getSource().src
+                const messageSrc = this.getMessage().toDataURL("image/png")
+                const key = this.key
+                fetch("/api/encrypt", {
+                    method: "POST",
+                    body: {
+                        query: {
+                            sourceSrc,
+                            messageSrc,
+                            key
+                        }
+                    }
+                })
+                .then(res => res.text())
+                .then(this.onComplete)
+                .catch(err => console.log(err))
             },
             decrypt() {
-                this.encryption.decrypt(this.getSource(), this.getSecret(), this.key)
+                const sourceSrc = this.getSource().src
+                const secretSrc = this.getSecret().src
+                const key = this.key
+                fetch("/api/decrypt", {
+                    method: "POST",
+                    body: {
+                        query: {
+                            sourceSrc,
+                            secretSrc,
+                            key
+                        }
+                    }
+                })
+                .then(res => res.text())
+                .then(this.onComplete)
+                .catch(err => console.log(err))
             },
             disableBtn() {
                 this.$el.disabled = true
