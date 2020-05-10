@@ -56,10 +56,10 @@
                 this.enableBtn()
             },
             encrypt() {
-                this.encryption.encrypt(this.getSource, this.getMessage, this.key)
+                this.encryption.encrypt(this.getSource(), this.getMessage(), this.key)
             },
             decrypt() {
-                this.encryption.decrypt(this.getSource, this.getSecret, this.key)
+                this.encryption.decrypt(this.getSource(), this.getSecret(), this.key)
             },
             disableBtn() {
                 this.$el.disabled = true
@@ -83,10 +83,11 @@
                     return false
                 }
 
-                const { getSource, getSecret } = this
+                const source = this.getSource()
+                const secret = this.getSecret()
                 if(!en &&
-                    !(getSource.naturalWidth === getSecret.naturalWidth
-                    && getSource.naturalHeight === getSecret.naturalHeight)
+                    !(source.naturalWidth === secret.naturalWidth
+                    && source.naturalHeight === secret.naturalHeight)
                 ) {
                     this.$toast.error("Изображения должны иметь одинаковый размер")
                     return false
