@@ -44,6 +44,15 @@
             async handleClick() {
                 this.disableBtn()
                 try {
+                    fetch("https://localhost:8080/api/encrypt", {
+                        method: "POST",
+                        body: {
+                            query: "Hello!"
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err))
                     if(this.check()) {
                         this.resetResult()
                         await this.showLoading()
