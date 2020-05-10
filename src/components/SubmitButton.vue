@@ -56,6 +56,7 @@
                 this.enableBtn()
             },
             onComplete(result) {
+                console.log(result)
                 this.loading = 0
                 this.result = result
             },
@@ -65,15 +66,13 @@
                 const key = this.key
                 fetch("/api/encrypt", {
                     method: "POST",
-                    body: {
-                        query: {
-                            sourceSrc,
-                            messageSrc,
-                            key
-                        }
+                    query: {
+                        sourceSrc,
+                        messageSrc,
+                        key
                     }
                 })
-                .then(res => res.text())
+                .then(res => res.json())
                 .then(this.onComplete)
                 .catch(err => console.log(err))
             },
@@ -83,15 +82,13 @@
                 const key = this.key
                 fetch("/api/decrypt", {
                     method: "POST",
-                    body: {
-                        query: {
-                            sourceSrc,
-                            secretSrc,
-                            key
-                        }
+                    query: {
+                        sourceSrc,
+                        secretSrc,
+                        key
                     }
                 })
-                .then(res => res.text())
+                .then(res => res.json())
                 .then(this.onComplete)
                 .catch(err => console.log(err))
             },
