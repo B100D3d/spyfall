@@ -1,5 +1,5 @@
 <template lang="pug">
-    input(v-model="url" type="url")
+    input(v-model="url" type="url" placeholder="Ссылка")
 </template>
 
 <script>

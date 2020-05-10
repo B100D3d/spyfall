@@ -39,19 +39,18 @@
 <style lang="sass" scoped>
     button
         border: none
-        color: var(--color)
         background-color: transparent
-        font-size: 1.375em
         padding: 0
-        transition: all .2s linear
+        transition: all .3s ease-in-out, color .5s linear, text-shadow .5s linear
         margin: 5px
         cursor: pointer
+        font-size: 1.375em
 
         &:hover
             font-size: 1.5em
             margin: 0
 
-    html[data-theme = "dark"] button:hover
+    html[data-theme = "dark"] button:hover span
         color: var(--color-accent)
         text-shadow: 2px 1px 15px var(--color-accent)
 </style>

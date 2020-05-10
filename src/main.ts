@@ -1,11 +1,13 @@
 import Vue from "vue"
 import Vuex from "vuex"
-import App from "./App.vue"
+import Toast from "@/components/Toast"
+import App from "@/App.vue"
 
 import state from "@/store"
 import mutations from "@/store/mutations"
 
 Vue.use(Vuex)
+Vue.use(Toast)
 
 Vue.config.productionTip = false
 

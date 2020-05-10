@@ -1,7 +1,7 @@
 <template lang="pug">
     div(class="file")
-        input(@change="handleFileChange" :id="$vnode.key" type="file")
-        label(:for="$vnode.key") {{ placeholder }}
+        input(@change="handleFileChange" :id="_id + '-file'" type="file")
+        label(:for="_id + '-file'") {{ placeholder }}
         button {{ placeholder }}
 </template>
 
@@ -9,8 +9,9 @@
     export default {
         name: "FileInput",
         data: () => ({
-            file: undefined
+            file: null
         }),
+        props: { _id: String },
         methods: {
             handleFileChange(e) {
                 this.file = e.target.files[0]
@@ -21,9 +22,15 @@
         },
         watch: {
             file() {
-                const fr = new FileReader()
-                fr.readAsDataURL(this.file)
-                fr.onload = () => this.$emit("change", fr.result)
+                const emit = result => this.$emit("change", result)
+                if(this.file) {
+                    const fr = new FileReader()
+                    fr.readAsDataURL(this.file)
+                    fr.onload = () => emit(fr.result)
+                } else {
+                    emit("")
+                }
+
             }
         }
     }
@@ -59,7 +66,7 @@
             height: 100%
             cursor: pointer
             color: var(--color)
-            transition: all .3s ease-in-out
+            transition: transform .3s ease-in-out, color .5s linear
             font-size: 1.2em
             text-align: center
             line-height: 50px

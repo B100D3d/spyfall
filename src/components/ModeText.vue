@@ -41,5 +41,7 @@
 </script>
 
 <style lang="sass" scoped>
-
+    span
+        color: var(--color)
+        transition: color .5s linear
 </style>

@@ -1,9 +1,10 @@
 <template lang="pug">
-    div(class="ImageSelectorWrapper")
+    div(class="ImageSelectorWrapper" :id="_id")
         InputTypeSwitch(@change="setInputMode")
-        FileInput(v-if="isLoad" @change="handleImageChange" :key="$vnode.key")
-        UrlInput(v-else @change="handleImageChange")
-        img
+        FileInput(v-if="isLoad" @change="setImgUrl" :_id="_id")
+        UrlInput(@change="setImgUrl" v-else)
+        transition(name="fade")
+            img(v-show="isSelected")
 </template>
 
 <script>
@@ -18,26 +19,30 @@
             UrlInput,
             FileInput
         },
+        props: { _id: String },
         data: () => ({
-            inputMode: "Load"
+            inputMode: "Load",
+            src: ""
         }),
         methods: {
             setInputMode(mode) {
                 this.inputMode = mode
             },
-            handleImageChange(img) {
-                this.setImgUrl(img)
-            },
             setImgUrl(img) {
-                this.$el.querySelector("img").src = img
+                this.src = img
             }
         },
         computed: {
-            isLoad: vm => vm.inputMode === "Load"
+            isLoad: vm => vm.inputMode === "Load",
+            isSelected: vm => !!vm.src
         },
         watch: {
             inputMode() {
                 this.setImgUrl("")
+            },
+            src() {
+                this.$el.querySelector("img").src = this.src
+                this.$store.commit(`set${this._id}Selected`, this.isSelected)
             }
         }
     }

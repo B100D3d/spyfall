@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="sass">
+    @import "styles/animations"
+
     *
         outline: none
         box-sizing: border-box
@@ -50,6 +52,7 @@ export default {
         margin: 0
 
     #app
+        position: relative
         width: 100%
         min-height: 100vh
         display: flex

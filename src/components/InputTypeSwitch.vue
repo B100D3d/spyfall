@@ -16,7 +16,7 @@
             }
         },
         computed: {
-            inputMode: (vm) => vm.inputModes[+vm.checked]
+            inputMode: vm => vm.inputModes[+vm.checked]
         },
         watch: {
             inputMode() {

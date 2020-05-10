@@ -1,11 +1,13 @@
 <template lang="pug">
     main
-        ImageSelector(key="source")
+        ImageSelector(_id="Source")
         transition(name="fade" mode="out-in")
             Paint(v-if="encrypt")
-            ImageSelector(key="secret" v-else)
+            ImageSelector(_id="Secret" v-else)
         KeyInput
         SubmitButton
+        Solution
+        Loading
 </template>
 
 <script>
@@ -13,14 +15,18 @@
     import SubmitButton from "@/components/SubmitButton"
     import KeyInput from "@/components/KeyInput"
     import Paint from "@/components/Paint"
+    import Solution from "@/components/Solution"
+    import Loading from "@/components/Loading"
 
     export default {
         name: "Main",
         components: {
+            Loading,
             Paint,
             ImageSelector,
             SubmitButton,
-            KeyInput
+            KeyInput,
+            Solution
         },
         computed: {
             encrypt: vm => vm.$store.state.encrypt
@@ -30,21 +36,11 @@
 
 <style lang="sass" scoped>
     main
-        position: relative
         display: flex
         flex-wrap: wrap
         justify-content: space-between
         align-content: flex-start
         width: 80%
         padding: 20px
-
-    .fade-enter, .fade-leave-to
-        opacity: 0
-
-    .fade-leave, .fade-enter-to
-        opacity: 1
-
-    .fade-enter-active, .fade-leave-active
-        transition: opacity .5s ease-in-out
 
 </style>
