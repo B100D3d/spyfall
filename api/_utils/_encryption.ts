@@ -88,7 +88,7 @@ export const encrypt = async (sourceSrc: string, messageSrc: string, key: string
                 r: Math.min(255, sourcePixel.r + r),
                 g: Math.min(255, sourcePixel.g + g),
                 b: Math.min(255, sourcePixel.b + b),
-                a: 255
+                a: sourcePixel.a
             }
 
             putPixelToSolution(solution, solutionPixel, x + startWidth, y + startHeight)
