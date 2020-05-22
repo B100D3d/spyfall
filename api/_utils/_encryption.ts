@@ -25,10 +25,11 @@ const getStartIndexes = (maxX: number, maxY: number, key: string): Start => {
 
 
 const getImage = (img: string): Promise<Jimp> => {
-    const buffer = img.includes("base64") ?
-         Buffer.from(img.slice(img.indexOf("base64") + 6), "base64")
-         : Buffer.from(img, "base64")
-    return Jimp.read(buffer)
+    if (img.includes("base64")) {
+        return Jimp.read(Buffer.from(img.slice(img.indexOf("base64") + 6), "base64"))
+    } else {
+        return Jimp.read(img)
+    }
 }
 
 
