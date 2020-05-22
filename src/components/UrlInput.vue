@@ -6,7 +6,8 @@
     export default {
         name: "UrlInput",
         data: () => ({
-            url: ""
+            url: "",
+            img: null
         }),
         watch: {
             url() {

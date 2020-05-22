@@ -32,6 +32,7 @@
                 ctx.lineWidth = 8
 
                 canvas.onmousemove = this.draw
+                canvas.ontouchmove = this.draw
             },
             draw(e) {
                 const x = e.offsetX
@@ -40,11 +41,9 @@
                 const dy = e.movementY
 
                 const { ctx } = this
-
                 const color = Math.floor(Math.random() * 200) + 1
                 ctx.strokeStyle = `rgb(${color}, ${color}, ${color})`
-
-                if(e.buttons > 0) {
+                if(e.buttons > 0 || e.touches.length > 0) {
                     ctx.beginPath()
                     ctx.moveTo(x, y)
                     ctx.lineTo(x - dx, y - dy)
@@ -95,5 +94,9 @@
             transform: translate(0, 330px)
         100%
             transform: translate(0, 0)
+
+    @media (max-width: 930px)
+        .message
+            margin: 20px 0
 
 </style>

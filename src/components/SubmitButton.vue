@@ -151,5 +151,10 @@
             box-shadow: 1px 2px 10px var(--color-primary)
 
 
+    @media (max-width: 650px)
+        button
+            &:hover
+                transform: scale(1.05)
+
 
 </style>

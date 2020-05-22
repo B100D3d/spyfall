@@ -64,4 +64,13 @@
             max-height: 300px
             margin-top: 40px
 
+    @media (max-width: 930px)
+        .ImageSelectorWrapper
+            flex-basis: 80%
+            margin: 10px 0
+
+    @media (max-width: 650px)
+        .ImageSelectorWrapper
+            flex-basis: 90%
+
 </style>

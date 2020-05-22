@@ -43,4 +43,13 @@
         width: 80%
         padding: 20px
 
+
+    @media (max-width: 930px)
+        main
+            justify-content: center
+
+    @media (max-width: 650px)
+        main
+            width: 100%
+
 </style>
