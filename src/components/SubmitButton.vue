@@ -5,14 +5,10 @@
 
 <script>
     import ModeText from "@/components/ModeText"
-    import Encryption from "@/utils/encryption.ts"
 
     export default {
         name: "SubmitButton",
         components: { ModeText },
-        data: () => ({
-            encryption: null
-        }),
         computed: {
             key: vm => vm.$store.state.key,
             sourceSelected: vm => vm.$store.state.sourceSelected,
@@ -30,13 +26,6 @@
                 }
             }
         },
-        mounted() {
-            this.encryption = new Encryption()
-            this.encryption.onComplete = result => {
-                this.loading = 0
-                this.result = result
-            }
-        },
         methods: {
             getSource: () => document.querySelector("#Source img"),
             getSecret: () => document.querySelector("#Secret img"),
@@ -46,54 +35,57 @@
                 try {
                     if(this.check()) {
                         this.resetResult()
-                        await this.showLoading()
+                        this.showLoading()
                         this.$store.state.encrypt ? this.encrypt() : this.decrypt()
                     }
                 } catch (e) {
-                    this.loading = 0
+                    this.loading = false
                     this.$toast.error(e)
                 }
                 this.enableBtn()
             },
             onComplete(data) {
-                this.loading = 0
+                this.loading = false
                 this.result = data.result
             },
+            onError(e) {
+                this.loading = false
+                console.log(e)
+                this.$toast.error("Ошибка")
+            },
             encrypt() {
-                const sourceSrc = this.getSource().src
-                const messageSrc = this.getMessage().toDataURL("image/png")
+                const source = this.getSource().src
+                const message = this.getMessage().toDataURL("image/png")
                 const key = this.key
+                const query = {
+                    source,
+                    message,
+                    key
+                }
                 fetch("/api/encrypt", {
                     method: "POST",
-                    body: {
-                        query: {
-                            sourceSrc,
-                            messageSrc,
-                            key
-                        }
-                    }
+                    body: JSON.stringify(query)
                 })
                 .then(res => res.json())
                 .then(this.onComplete)
-                .catch(err => console.log(err))
+                .catch(this.onError)
             },
             decrypt() {
-                const sourceSrc = this.getSource().src
-                const secretSrc = this.getSecret().src
+                const source = this.getSource().src
+                const secret = this.getSecret().src
                 const key = this.key
+                const query = {
+                    source,
+                    secret,
+                    key
+                }
                 fetch("/api/decrypt", {
                     method: "POST",
-                    body: {
-                        query: {
-                            sourceSrc,
-                            secretSrc,
-                            key
-                        }
-                    }
+                    body: JSON.stringify(query)
                 })
                 .then(res => res.json())
                 .then(this.onComplete)
-                .catch(err => console.log(err))
+                .catch(this.onError)
             },
             disableBtn() {
                 this.$el.disabled = true
@@ -101,9 +93,8 @@
             enableBtn() {
                 this.$el.disabled = false
             },
-            async showLoading() {
+            showLoading() {
                 this.loading = true
-                await new Promise(r => setTimeout(r, 100))
             },
             resetResult(){
                 this.result = null
@@ -112,8 +103,7 @@
                 const en = this.$store.state.encrypt
 
                 if(!this.sourceSelected || (!en && !this.secretSelected)) {
-                    const toastText = `Выберите изоражени${en ? "е" : "я"}`
-                    this.$toast.error(toastText)
+                    this.$toast.error(`Выберите изоражени${en ? "е" : "я"}`)
                     return false
                 }
 
@@ -124,6 +114,12 @@
                     && source.naturalHeight === secret.naturalHeight)
                 ) {
                     this.$toast.error("Изображения должны иметь одинаковый размер")
+                    return false
+                }
+
+                if(source.naturalWidth < 380 || source.naturalHeight < 380
+                    || secret?.naturalWidth < 380 || secret?.naturalHeight < 380) {
+                    this.$toast.error("Минимальный размер изображения 380x380 px")
                     return false
                 }
 

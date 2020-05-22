@@ -4,6 +4,7 @@
     "strict": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "baseUrl": ".",
     "allowJs": true,
