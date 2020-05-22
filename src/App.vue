@@ -19,6 +19,7 @@ export default {
 
 <style lang="sass">
     @import "styles/animations"
+    @import "styles/variables"
 
     *
         outline: none
@@ -29,24 +30,7 @@ export default {
     html
         font-family: Open Sans
         font-size: 16px
-        --color-primary: #AAFFA9
-        --color-secondary: #11FFBD
-        --color-fileInput-gradient1: #00c6ff
-        --color-fileInput-gradient2: #0072ff
 
-    html[data-theme = "light"]
-        --background-color: bisque
-        --color: black
-        --color-accent: var(--color-fileInput-gradient2)
-        --color-submit-gradient1: #9D50BB
-        --color-submit-gradient2: #6E48AA
-
-    html[data-theme = "dark"]
-        --background-color: #282828
-        --color: white
-        --color-accent: var(--color-primary)
-        --color-submit-gradient1: #9D50BB
-        --color-submit-gradient2: #6E48AA
 
     body
         margin: 0

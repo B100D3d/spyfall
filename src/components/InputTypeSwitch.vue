@@ -27,6 +27,7 @@
 </script>
 
 <style lang="sass" scoped>
+
     .switchWrapper
         position: relative
         display: flex
@@ -41,10 +42,10 @@
             left: 0
             width: 50%
             height: 85%
-            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary))
+            background: linear-gradient(45deg, var(--temp-primary), var(--temp-secondary))
             transform: skewY(30deg) rotate(-30deg)
             border-radius: 10px
-            transition: all .5s ease
+            transition: all .5s ease, --temp-primary .3s linear, --temp-secondary .3s linear
 
         span
             z-index: 5
@@ -73,6 +74,8 @@
             &:hover
                 ~ .slider
                     box-shadow: 2px 4px 10px var(--color-primary)
+                    --temp-primary: var(--color-secondary)
+                    --temp-secondary: var(--color-primary)
 
             &:checked
                 ~ .slider

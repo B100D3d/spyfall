@@ -137,11 +137,11 @@
         font-size: 1.5em
         margin-top: 40px
         color: black
-        background: linear-gradient(45deg, var(--color-primary), var(--color-secondary))
+        background: linear-gradient(45deg, var(--temp-primary), var(--temp-secondary))
         border: none
         border-radius: 10px
         cursor: pointer
-        transition: all .3s ease-in-out
+        transition: all .3s ease-in-out, --temp-primary .5s linear, --temp-secondary .5s linear
 
         span
             color: black
@@ -149,6 +149,8 @@
         &:hover
             transform: scale(1.1)
             box-shadow: 1px 2px 10px var(--color-primary)
+            --temp-primary: var(--color-secondary)
+            --temp-secondary: var(--color-primary)
 
 
     @media (max-width: 650px)

@@ -43,7 +43,7 @@
                 const { ctx } = this
                 const color = Math.floor(Math.random() * 200) + 1
                 ctx.strokeStyle = `rgb(${color}, ${color}, ${color})`
-                if(e.buttons > 0 || e.touches.length > 0) {
+                if(e.buttons > 0) {
                     ctx.beginPath()
                     ctx.moveTo(x, y)
                     ctx.lineTo(x - dx, y - dy)

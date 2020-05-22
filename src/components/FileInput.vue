@@ -51,8 +51,8 @@
             font-size: 1.2em
             color: transparent
             border-radius: 10px
-            transition: all .3s ease-in-out
-            background: linear-gradient(45deg, var(--color-fileInput-gradient1) 40%, var(--color-fileInput-gradient2) 90%)
+            transition: all .3s ease-in-out, --temp-fileInput-gradient1 .5s linear, --temp-fileInput-gradient2 .5s linear
+            background: linear-gradient(45deg, var(--temp-fileInput-gradient1) 40%, var(--temp-fileInput-gradient2) 90%)
 
         input
             position: absolute
@@ -78,4 +78,6 @@
                 ~ button
                     transform: scale(1.1)
                     box-shadow: 1px 2px 10px var(--color-fileInput-gradient1)
+                    --temp-fileInput-gradient1: var(--color-fileInput-gradient2)
+                    --temp-fileInput-gradient2: var(--color-fileInput-gradient1)
 </style>
