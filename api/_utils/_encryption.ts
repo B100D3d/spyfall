@@ -75,7 +75,7 @@ export const encrypt = async (sourceSrc: string, messageSrc: string, key: string
 
             const { r: messagePixel } = getPixelColor(message, x, y)
 
-            const encryptPixel = messagePixel ^ key.charCodeAt((x+y) % key.length)
+            const encryptPixel = messagePixel ^ (key.charCodeAt((x+y) % key.length) % 256)
 
             const [r, g, b] = [
                 encryptPixel >> 6,
@@ -132,7 +132,7 @@ export const decrypt = async (sourceSrc: string, secretSrc: string, key: string)
 
             const encryptionNum = (r << 6) + (g << 3) + b
 
-            const solutionPixelColor = encryptionNum ^ key.charCodeAt((x+y) % key.length)
+            const solutionPixelColor = encryptionNum ^ (key.charCodeAt((x+y) % key.length) % 256)
 
             const solutionPixel = {
                 r: solutionPixelColor,
