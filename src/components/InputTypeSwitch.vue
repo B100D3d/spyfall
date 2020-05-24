@@ -35,6 +35,7 @@
         align-items: center
         width: 250px
         height: 50px
+        font-size: 1.1em
 
         .slider
             position: absolute
@@ -52,11 +53,11 @@
             transition: color .5s linear
 
         .load
-            margin-left: 25px
+            margin-left: 22px
             color: black
 
         .link
-            margin-right: 35px
+            margin-right: 32px
             color: var(--color)
 
         input

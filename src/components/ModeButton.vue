@@ -44,10 +44,10 @@
         transition: all .3s ease-in-out, color .5s linear, text-shadow .5s linear
         margin: 5px
         cursor: pointer
-        font-size: 1.375em
+        font-size: 1.3em
 
         &:hover
-            font-size: 1.5em
+            font-size: 1.4em
             margin: 0
 
     html[data-theme = "dark"] button:hover span

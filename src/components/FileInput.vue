@@ -67,7 +67,7 @@
             cursor: pointer
             color: var(--color)
             transition: transform .3s ease-in-out, color .5s linear
-            font-size: 1.2em
+            font-size: 1.1em
             text-align: center
             line-height: 50px
             z-index: 2

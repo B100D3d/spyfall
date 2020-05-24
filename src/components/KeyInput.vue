@@ -38,6 +38,7 @@
     .key
         position: relative
         width: 100%
+        margin-top: 10px
 
         .generateBtn
             position: absolute
@@ -60,7 +61,7 @@
             padding: 5px 50px
             border-bottom: 2px solid gray
             text-align: center
-            font-size: 1.5em
+            font-size: 1.3em
             transition: all .3s ease-in-out
 
             &:focus

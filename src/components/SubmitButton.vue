@@ -134,7 +134,7 @@
     button
         width: 100%
         min-height: 35px
-        font-size: 1.5em
+        font-size: 1.4em
         margin-top: 40px
         color: black
         background: linear-gradient(45deg, var(--temp-primary), var(--temp-secondary))

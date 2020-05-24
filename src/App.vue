@@ -18,6 +18,8 @@ export default {
 </script>
 
 <style lang="sass">
+    @import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap')
+
     @import "styles/animations"
     @import "styles/variables"
 
@@ -25,10 +27,10 @@ export default {
         outline: none
         box-sizing: border-box
         -webkit-tap-highlight-color: transparent
-        font-family: Open Sans
+        font-family: 'Kosugi Maru', sans-serif
 
     html
-        font-family: Open Sans
+        font-family: 'Kosugi Maru', sans-serif
         font-size: 16px
 
 
