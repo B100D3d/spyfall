@@ -17,7 +17,9 @@
     "jimp": "^0.12.1",
     "vue": "^2.6.11",
     "vue-lottie": "^0.2.1",
-    "vuex": "^3.3.0"
+    "vuex": "^3.3.0",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -36,9 +38,7 @@
     "pug-plain-loader": "^1.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
-    "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.9.3",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
