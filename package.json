@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "start": "node build/server.js",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "npm run build:vue && npm run build:api",
     "lint": "vue-cli-service lint",
-    "api": "ts-node --project server/tsconfig.json server/server.ts",
+    "build:vue": "vue-cli-service build",
+    "build:api": "tsc --project server/tsconfig.json",
     "api-dev": "ts-node-dev --respawn --transpileOnly --project server/tsconfig.json server/server.ts"
   },
   "dependencies": {
@@ -18,7 +20,6 @@
     "vue": "^2.6.11",
     "vue-lottie": "^0.2.1",
     "vuex": "^3.3.0",
-    "ts-node": "^8.10.2",
     "typescript": "^3.9.3"
   },
   "devDependencies": {
