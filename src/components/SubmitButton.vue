@@ -62,7 +62,7 @@
                     message,
                     key
                 }
-                fetch("http://localhost:3000/api/encrypt", {
+                fetch("https://devourer-spyfall.herokuapp.com/api/encrypt", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
                     secret,
                     key
                 }
-                fetch("http://localhost:3000/api/decrypt", {
+                fetch("https://devourer-spyfall.herokuapp.com/api/decrypt", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
