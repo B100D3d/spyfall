@@ -62,8 +62,11 @@
                     message,
                     key
                 }
-                fetch("/api/encrypt", {
+                fetch("http://localhost:3000/api/encrypt", {
                     method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(query)
                 })
                 .then(res => res.json())
@@ -79,8 +82,11 @@
                     secret,
                     key
                 }
-                fetch("/api/decrypt", {
+                fetch("http://localhost:3000/api/decrypt", {
                     method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     body: JSON.stringify(query)
                 })
                 .then(res => res.json())

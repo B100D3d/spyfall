@@ -1,4 +1,4 @@
-import { range } from "./_index"
+import { range } from "./index"
 import Jimp from "jimp"
 
 interface RGBA {
