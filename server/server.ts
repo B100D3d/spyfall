@@ -5,12 +5,24 @@ import path from "path"
 import apiRouter from "./router"
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const publicPath = path.join(__dirname, "../dist")
 
+const isProduction = process.env.PROD === "true"
+const origin = isProduction ? [
+        "https://devourer.ru",
+        "https://www.devourer.ru"]
+    : ["http://localhost:3001"]
 
 app
-    .use(cors())
+    .disable('x-powered-by')
+    .use(cors({
+        origin,
+        optionsSuccessStatus: 200,
+        credentials: true,
+        methods: ["GET", "POST"],
+        allowedHeaders: "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Origin"
+    }))
     .use(bodyParser.json({ limit: '50mb' }))
     .use(express.static(path.join(publicPath)))
     .use("/api", apiRouter)
