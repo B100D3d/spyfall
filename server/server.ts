@@ -3,6 +3,8 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import path from "path"
 import apiRouter from "./router"
+import dotenv from "dotenv"
+dotenv.config()
 
 const app = express()
 const port = process.env.PORT
