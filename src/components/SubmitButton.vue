@@ -62,7 +62,7 @@
                     message,
                     key
                 }
-                fetch("https://devourer-spyfall.herokuapp.com/api/encrypt", {
+                fetch("https://devourer.ru/api/encrypt", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
                     secret,
                     key
                 }
-                fetch("https://devourer-spyfall.herokuapp.com/api/decrypt", {
+                fetch("https://devourer.ru/api/decrypt", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
