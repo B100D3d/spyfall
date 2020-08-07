@@ -1,22 +1,22 @@
 import { State } from "@/types"
 
 export default {
-    changeMod(state: State) {
+    CHANGE_MOD(state: State) {
         state.encrypt = !state.encrypt
     },
-    setKey(state: State, key: string) {
+    SET_KEY(state: State, key: string) {
         state.key = key
     },
-    setResult(state: State, result: string) {
+    SET_RESULT(state: State, result: string) {
         state.result = result
     },
-    setSourceSelected(state: State, selected: boolean) {
+    SET_SOURCE_SELECTED(state: State, selected: boolean) {
         state.sourceSelected = selected
     },
-    setSecretSelected(state: State, selected: boolean) {
+    SET_SECRET_SELECTED(state: State, selected: boolean) {
         state.secretSelected = selected
     },
-    setLoading(state: State, isLoading: boolean) {
+    SET_LOADING(state: State, isLoading: boolean) {
         state.loading = isLoading
-    }
+    },
 }

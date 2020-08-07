@@ -1,8 +1,8 @@
 import Toast from "./Toast"
-import Api from "./api";
+import Api from "./api"
 
-
-const Plugin = Vue => {
+const Plugin = (Vue) => {
+    Vue.$toast = Api(Vue)
     Vue.prototype.$toast = Api(Vue)
 }
 

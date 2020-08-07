@@ -8,69 +8,76 @@
 </template>
 
 <script>
-    import InputTypeSwitch from "@/components/InputTypeSwitch"
-    import UrlInput from "@/components/UrlInput"
-    import FileInput from "@/components/FileInput"
+import InputTypeSwitch from "@/components/InputTypeSwitch"
+import UrlInput from "@/components/UrlInput"
+import FileInput from "@/components/FileInput"
+import { SelectedImage } from "@/types"
 
-    export default {
-        name: "ImageSelector",
-        components: {
-            InputTypeSwitch,
-            UrlInput,
-            FileInput
+export default {
+    name: "ImageSelector",
+    components: {
+        InputTypeSwitch,
+        UrlInput,
+        FileInput,
+    },
+    props: { _id: String },
+    data: () => ({
+        inputMode: "Load",
+        src: "",
+    }),
+    methods: {
+        setInputMode(mode) {
+            this.inputMode = mode
         },
-        props: { _id: String },
-        data: () => ({
-            inputMode: "Load",
-            src: ""
-        }),
-        methods: {
-            setInputMode(mode) {
-                this.inputMode = mode
-            },
-            setImgUrl(img) {
-                this.src = img
-            }
+        setImgUrl(img) {
+            this.src = img
         },
-        computed: {
-            isLoad: vm => vm.inputMode === "Load",
-            isSelected: vm => !!vm.src
+    },
+    computed: {
+        isLoad: (vm) => vm.inputMode === "Load",
+        isSelected: (vm) => !!vm.src,
+    },
+    watch: {
+        inputMode() {
+            this.setImgUrl("")
         },
-        watch: {
-            inputMode() {
-                this.setImgUrl("")
-            },
-            src() {
-                this.$el.querySelector("img").src = this.src
-                this.$store.commit(`set${this._id}Selected`, this.isSelected)
-            }
-        }
-    }
+        src() {
+            this.$el.querySelector("img").src = this.src
+            const type =
+                this._id === "Secret"
+                    ? SelectedImage.Secret
+                    : SelectedImage.Source
+            this.$store.dispatch(`setImageSelected`, {
+                type,
+                selected: this.isSelected,
+            })
+        },
+    },
+}
 </script>
 
 <style lang="sass" scoped>
 
+.ImageSelectorWrapper
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    padding: 10px
+    flex-basis: 45%
+    min-height: 200px
+
+    img
+        max-width: 100%
+        max-height: 300px
+        margin-top: 40px
+
+@media (max-width: 930px)
     .ImageSelectorWrapper
-        display: flex
-        flex-direction: column
-        justify-content: flex-start
-        align-items: center
-        padding: 10px
-        flex-basis: 45%
-        min-height: 200px
+        flex-basis: 80%
+        margin: 10px 0
 
-        img
-            max-width: 100%
-            max-height: 300px
-            margin-top: 40px
-
-    @media (max-width: 930px)
-        .ImageSelectorWrapper
-            flex-basis: 80%
-            margin: 10px 0
-
-    @media (max-width: 650px)
-        .ImageSelectorWrapper
-            flex-basis: 90%
-
+@media (max-width: 650px)
+    .ImageSelectorWrapper
+        flex-basis: 90%
 </style>

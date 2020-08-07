@@ -5,103 +5,100 @@
 </template>
 
 <script>
-    import { removeElement } from "@/utils"
+import { removeElement } from "@/utils"
 
-    export default {
-        name: "Toast",
-        props: {
-            message: {
-                type: String,
-                required: true
-            },
-            duration: {
-                type: Number,
-                default: 3000
-            },
-            type: {
-                type: String
-            },
-            onClick: {
-                type: Function
-            }
+export default {
+    name: "Toast",
+    props: {
+        message: {
+            type: String,
+            required: true,
         },
-        data: () => ({
-            isActive: false,
-            parent: null,
-            timer: null
-        }),
-        beforeMount() {
-            this.setupContainer()
+        duration: {
+            type: Number,
+            default: 3000,
         },
-        mounted() {
-            this.showToast()
+        type: {
+            type: String,
         },
-        methods: {
-            setupContainer() {
-                this.parent = document.querySelector(".toastWrapper")
+        onClick: {
+            type: Function,
+        },
+    },
+    data: () => ({
+        isActive: false,
+        parent: null,
+        timer: null,
+    }),
+    beforeMount() {
+        this.setupContainer()
+    },
+    mounted() {
+        this.showToast()
+    },
+    methods: {
+        setupContainer() {
+            this.parent = document.querySelector(".toastWrapper")
 
-                if(this.parent) return
+            if (this.parent) return
 
-                this.parent = document.createElement("div")
-                this.parent.className = "toastWrapper"
+            this.parent = document.createElement("div")
+            this.parent.className = "toastWrapper"
 
-                document.body.appendChild(this.parent)
-            },
-            showToast() {
-                this.parent.insertAdjacentElement("beforeend", this.$el)
-                this.isActive = true
+            document.body.appendChild(this.parent)
+        },
+        showToast() {
+            this.parent.insertAdjacentElement("beforeend", this.$el)
+            this.isActive = true
 
-                this.timer = setTimeout(this.close, this.duration)
-            },
-            close() {
-                clearTimeout(this.timer)
-                this.isActive = false
+            this.timer = setTimeout(this.close, this.duration)
+        },
+        close() {
+            clearTimeout(this.timer)
+            this.isActive = false
 
-                setTimeout(() => {
-                    this.$destroy()
-                    removeElement(this.$el)
-                }, 500)
-
-            },
-            handleClick() {
-                if(this.onClick) this.onClick()
-                else this.close()
-            }
-        }
-    }
+            setTimeout(() => {
+                this.$destroy()
+                removeElement(this.$el)
+            }, 500)
+        },
+        handleClick() {
+            if (this.onClick) this.onClick()
+            else this.close()
+        },
+    },
+}
 </script>
 
 <style lang="sass">
 
-    .toastWrapper
-        position: fixed
-        top: 0
-        left: 0
-        width: 100%
-        height: 100vh
+.toastWrapper
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100vh
+    display: flex
+    flex-direction: column
+    justify-content: start
+    align-items: center
+    z-index: 999
+    pointer-events: none
+
+    .toast
         display: flex
-        flex-direction: column
-        justify-content: start
+        justify-content: center
         align-items: center
-        z-index: 999
-        pointer-events: none
+        border-radius: 10px
+        margin: 10px 0
+        padding: 10px
+        pointer-events: all
+        box-shadow: 1px 6px 10px black
 
-        .toast
-            display: flex
-            justify-content: center
-            align-items: center
-            border-radius: 10px
-            margin: 10px 0
-            padding: 10px
-            pointer-events: all
-            box-shadow: 1px 6px 10px black
+        &.error
+            background-color: red
 
-            &.error
-                background-color: red
-
-            span
-                color: white
-                font-size: 1.1em
-
-
+        span
+            color: white
+            font-size: 1.1em
 </style>

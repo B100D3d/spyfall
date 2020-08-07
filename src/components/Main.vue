@@ -11,45 +11,44 @@
 </template>
 
 <script>
-    import ImageSelector from "@/components/ImageSelector"
-    import SubmitButton from "@/components/SubmitButton"
-    import KeyInput from "@/components/KeyInput"
-    import Paint from "@/components/Paint"
-    import Solution from "@/components/Solution"
-    import Loading from "@/components/Loading"
+import ImageSelector from "@/components/ImageSelector"
+import SubmitButton from "@/components/SubmitButton"
+import KeyInput from "@/components/KeyInput"
+import Paint from "@/components/Paint"
+import Solution from "@/components/Solution"
+import Loading from "@/components/Loading"
 
-    export default {
-        name: "Main",
-        components: {
-            Loading,
-            Paint,
-            ImageSelector,
-            SubmitButton,
-            KeyInput,
-            Solution
-        },
-        computed: {
-            encrypt: vm => vm.$store.state.encrypt
-        }
-    }
+import { mapGetters } from "vuex"
+
+export default {
+    name: "Main",
+    components: {
+        Loading,
+        Paint,
+        ImageSelector,
+        SubmitButton,
+        KeyInput,
+        Solution,
+    },
+    computed: mapGetters(["encrypt"]),
+}
 </script>
 
 <style lang="sass" scoped>
+main
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-between
+    align-content: flex-start
+    width: 80%
+    padding: 20px
+
+
+@media (max-width: 930px)
     main
-        display: flex
-        flex-wrap: wrap
-        justify-content: space-between
-        align-content: flex-start
-        width: 80%
-        padding: 20px
+        justify-content: center
 
-
-    @media (max-width: 930px)
-        main
-            justify-content: center
-
-    @media (max-width: 650px)
-        main
-            width: 100%
-
+@media (max-width: 650px)
+    main
+        width: 100%
 </style>
