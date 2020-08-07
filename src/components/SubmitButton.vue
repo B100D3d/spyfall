@@ -6,7 +6,6 @@
 <script>
 import ModeText from "@/components/ModeText"
 import { mapGetters, mapActions } from "vuex"
-import { encrypt } from "../../server/utils/encryption"
 
 export default {
     name: "SubmitButton",
@@ -46,7 +45,9 @@ export default {
             const message = this.getMessage()?.toDataURL("image/png")
             const secret = this.getSecret()?.src
             const key = this.key
-            return encrypt ? { source, message, key } : { source, secret, key }
+            return this.encrypt
+                ? { source, message, key }
+                : { source, secret, key }
         },
         onError(e) {
             console.log(e)
