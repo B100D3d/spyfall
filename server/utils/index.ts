@@ -1,4 +1,7 @@
-
-export const range = (size: number, start = 0): Array<number> => {
-    return [...Array(size).keys()].map(k => k + start)
+export const range = (from: number, to?: number, step = 1): Array<number> => {
+    if (!to) {
+        ;[from, to] = [0, from]
+    }
+    const size = to - from + 1
+    return [...Array(size).keys()].map((k) => from + k * step)
 }
