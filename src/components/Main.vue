@@ -1,13 +1,12 @@
 <template lang="pug">
     main
-        ImageSelector(_id="Source")
+        ImageSelector(_id="Source" title="Исходное изображение")
         transition(name="fade" mode="out-in")
-            Paint(v-if="encrypt")
-            ImageSelector(_id="Secret" v-else)
+            Paint(v-if="encrypt" title="Сообщение")
+            ImageSelector(_id="Secret" title="Секретное изображение" v-else)
         KeyInput
         SubmitButton
         Solution
-        Loading
 </template>
 
 <script>
@@ -16,14 +15,12 @@ import SubmitButton from "@/components/SubmitButton"
 import KeyInput from "@/components/KeyInput"
 import Paint from "@/components/Paint"
 import Solution from "@/components/Solution"
-import Loading from "@/components/Loading"
 
 import { mapGetters } from "vuex"
 
 export default {
     name: "Main",
     components: {
-        Loading,
         Paint,
         ImageSelector,
         SubmitButton,
@@ -41,14 +38,19 @@ main
     justify-content: space-between
     align-content: flex-start
     width: 80%
-    padding: 20px
+    padding: 10px 20px 20px
 
 
-@media (max-width: 930px)
+@media (max-width: 1010px)
     main
-        justify-content: center
+        align-items: stretch
+        flex-direction: column
 
 @media (max-width: 650px)
     main
         width: 100%
+
+@media (max-width: 455px)
+    main
+        padding: 10px 0
 </style>

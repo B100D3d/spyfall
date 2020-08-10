@@ -1,8 +1,9 @@
 <template lang="pug">
-    div(class="ImageSelectorWrapper" :id="_id")
-        InputTypeSwitch(@change="setInputMode")
-        FileInput(v-if="isLoad" @change="setImgUrl" :_id="_id")
-        UrlInput(@change="setImgUrl" v-else)
+    div(class="ImageSelectorWrapper ImageBlock" :id="_id")
+        span(class="ImageBlock__title") {{ title }}
+        InputTypeSwitch(@change="inputMode = $event")
+        FileInput(v-if="isLoad" @change="src = $event" :_id="_id")
+        UrlInput(@change="src = $event" v-else)
         transition(name="fade")
             img(v-show="isSelected")
 </template>
@@ -20,26 +21,18 @@ export default {
         UrlInput,
         FileInput,
     },
-    props: { _id: String },
+    props: { _id: String, title: String },
     data: () => ({
         inputMode: "Load",
         src: "",
     }),
-    methods: {
-        setInputMode(mode) {
-            this.inputMode = mode
-        },
-        setImgUrl(img) {
-            this.src = img
-        },
-    },
     computed: {
         isLoad: (vm) => vm.inputMode === "Load",
         isSelected: (vm) => !!vm.src,
     },
     watch: {
         inputMode() {
-            this.setImgUrl("")
+            this.src = ""
         },
         src() {
             this.$el.querySelector("img").src = this.src
@@ -63,7 +56,6 @@ export default {
     flex-direction: column
     justify-content: flex-start
     align-items: center
-    padding: 10px
     flex-basis: 45%
     min-height: 200px
 
@@ -72,7 +64,7 @@ export default {
         max-height: 300px
         margin-top: 40px
 
-@media (max-width: 930px)
+@media (max-width: 1010px)
     .ImageSelectorWrapper
         flex-basis: 80%
         margin: 10px 0

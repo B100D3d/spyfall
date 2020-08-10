@@ -1,17 +1,15 @@
 <template lang="pug">
-    input(v-model="url" type="url" placeholder="Ссылка")
+    input(@input="emit" type="url" placeholder="Ссылка")
 </template>
 
 <script>
 export default {
     name: "UrlInput",
-    data: () => ({
-        url: "",
-        img: null,
-    }),
-    watch: {
-        url() {
-            this.$el.checkValidity() && this.$emit("change", this.url)
+    methods: {
+        emit(event) {
+            if (this.$el.checkValidity()) {
+                this.$emit("change", event.target.value)
+            }
         },
     },
 }

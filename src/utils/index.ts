@@ -2,7 +2,7 @@ export const range = (from: number, to?: number, step = 1): Array<number> => {
     if (!to) {
         ;[from, to] = [0, from]
     }
-    const size = to - from + 1
+    const size = to - from
     return [...Array(size).keys()].map((k) => from + k * step)
 }
 
@@ -13,3 +13,5 @@ export const removeElement = (el: Element): void => {
         el.parentNode?.removeChild(el)
     }
 }
+
+export const timeout = (ms: number) => new Promise((r) => setTimeout(r, ms))

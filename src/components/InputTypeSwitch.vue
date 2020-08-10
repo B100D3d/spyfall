@@ -1,6 +1,9 @@
 <template lang="pug">
     div(class="switchWrapper")
-        input(type="checkbox" v-model="checked")
+        input(
+            type="checkbox"
+            @change="$emit('change', inputModes[+$event.target.checked])"
+        )
         span(class="load") Загрузить
         span(class="link") Ссылка
         div(class="slider")
@@ -9,20 +12,7 @@
 <script>
 export default {
     name: "InputTypeSwitch",
-    data() {
-        return {
-            checked: false,
-            inputModes: ["Load", "Ref"],
-        }
-    },
-    computed: {
-        inputMode: (vm) => vm.inputModes[+vm.checked],
-    },
-    watch: {
-        inputMode() {
-            this.$emit("change", this.inputMode)
-        },
-    },
+    data: () => ({ inputModes: ["Load", "Ref"] }),
 }
 </script>
 

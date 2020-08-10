@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { timeout } from "@/utils"
+
 export default {
     name: "ModeText",
     data: () => ({
@@ -18,12 +20,12 @@ export default {
 
             let timeToChar = 250 / text.length
             for (const _ of text) {
-                await new Promise((r) => setTimeout(r, timeToChar))
+                await timeout(timeToChar)
                 deleteLastChar()
             }
             timeToChar = 250 / modes[+encrypt].length
             for (const char of modes[+encrypt]) {
-                await new Promise((r) => setTimeout(r, timeToChar))
+                await timeout(timeToChar)
                 addChar(char)
             }
         },

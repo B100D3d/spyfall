@@ -54,33 +54,47 @@ export default {
             this.$toast.error("Ошибка")
         },
         check() {
-            const en = this.$store.state.encrypt
-
-            if (!this.sourceSelected || (!en && !this.secretSelected)) {
-                this.$toast.error(`Выберите изоражени${en ? "е" : "я"}`)
-                return false
-            }
+            const { encrypt } = this
+            const decrypt = !encrypt
 
             const source = this.getSource()
             const secret = this.getSecret()
+
+            const { sourceSelected, secretSelected } = this
+
+            const errors = []
+
+            if (!this.sourceSelected) {
+                errors.push("Выберите исходное изображение")
+            }
+
+            if (decrypt && !this.secretSelected) {
+                errors.push("Выберите секретное изображение")
+            }
+
             if (
-                !en &&
+                sourceSelected &&
+                secretSelected &&
                 !(
                     source.naturalWidth === secret.naturalWidth &&
                     source.naturalHeight === secret.naturalHeight
                 )
             ) {
-                this.$toast.error("Изображения должны иметь одинаковый размер")
-                return false
+                errors.push("Изображения должны иметь одинаковый размер")
             }
 
             if (
-                source.naturalWidth < 380 ||
-                source.naturalHeight < 380 ||
-                secret?.naturalWidth < 380 ||
-                secret?.naturalHeight < 380
+                (sourceSelected || secretSelected) &&
+                (source.naturalWidth < 380 ||
+                    source.naturalHeight < 380 ||
+                    secret?.naturalWidth < 380 ||
+                    secret?.naturalHeight < 380)
             ) {
-                this.$toast.error("Минимальный размер изображения 380x380 px")
+                errors.push("Минимальный размер изображения 380x380 px")
+            }
+
+            if (errors.length) {
+                errors.forEach((e) => this.$toast.error(e))
                 return false
             }
 
@@ -95,7 +109,7 @@ button
     width: 100%
     min-height: 35px
     font-size: 1.4em
-    margin-top: 40px
+    margin: 40px 0 20px
     color: black
     background: linear-gradient(45deg, var(--temp-primary), var(--temp-secondary))
     border: none
@@ -117,4 +131,9 @@ button
     button
         &:hover
             transform: scale(1.05)
+
+@media (max-width: 455px)
+    button
+        width: 90%
+        margin: 40px auto
 </style>
