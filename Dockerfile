@@ -11,7 +11,7 @@ RUN npm i
 
 EXPOSE 3001
 
-RUN npm run build
+RUN npm run build:api
 
-CMD npm run start
+CMD npm run api
 
