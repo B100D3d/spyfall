@@ -33,22 +33,20 @@ const getImage = (img: string): Promise<Jimp> => {
     }
 }
 
-const getPixelColor = (img: Jimp, x: number, y: number): RGBA => {
-    return Jimp.intToRGBA(img.getPixelColor(x, y))
-}
+const getPixelColor = (img: Jimp, x: number, y: number): RGBA =>
+    Jimp.intToRGBA(img.getPixelColor(x, y))
 
-const createImage = (width: number, height: number): Jimp => {
-    return new Jimp(width, height, "#000000")
-}
+const createImage = (width: number, height: number): Jimp =>
+    new Jimp(width, height, "#000000")
 
-const putPixelToSolution = (
-    solution: Jimp,
+const putPixelToImage = (
+    image: Jimp,
     { r, g, b, a }: RGBA,
     x: number,
     y: number
 ): void => {
     const hex = Jimp.rgbaToInt(r, g, b, a)
-    solution.setPixelColor(hex, x, y)
+    image.setPixelColor(hex, x, y)
 }
 
 export const encrypt = async (
@@ -98,7 +96,7 @@ export const encrypt = async (
                 a: sourcePixel.a,
             }
 
-            putPixelToSolution(
+            putPixelToImage(
                 solution,
                 solutionPixel,
                 x + startWidth,
@@ -163,7 +161,7 @@ export const decrypt = async (
                 a: 255,
             }
 
-            putPixelToSolution(solution, solutionPixel, x, y)
+            putPixelToImage(solution, solutionPixel, x, y)
         }
     }
     return solution.getBase64Async("image/png")
