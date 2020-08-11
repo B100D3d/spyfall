@@ -1,4 +1,3 @@
-import Vue from "vue"
 import { ActionTree } from "vuex"
 import { Query, SelectedImage, State } from "@/types"
 import { encryptApi, decryptApi } from "@/services"

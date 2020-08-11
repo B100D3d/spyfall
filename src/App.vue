@@ -57,19 +57,6 @@ body
     margin: 0
     background-color: var(--background-color)
 
-#app
-    position: relative
-    width: 100%
-    min-height: 100vh
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: flex-start
-    -webkit-font-smoothing: antialiased
-    -moz-osx-font-smoothing: grayscale
-    background-color: var(--background-color)
-    transition: background-color .5s linear
-
 .ImageBlock
     position: relative
     padding: 60px 10px 10px
@@ -83,4 +70,17 @@ body
         color: var(--color)
         font-size: 1.4em
         transition: color .5s linear
+
+#app
+    position: relative
+    width: 100%
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: flex-start
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    background-color: var(--background-color)
+    transition: background-color .5s linear
 </style>

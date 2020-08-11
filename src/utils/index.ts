@@ -14,4 +14,14 @@ export const removeElement = (el: Element): void => {
     }
 }
 
+export const getDistanceFromTopOfScreen = (element: HTMLElement | null) => {
+    let distance = 0
+    while (element) {
+        distance += element.offsetTop
+        element = element.offsetParent as HTMLElement
+    }
+
+    return distance - window.scrollY
+}
+
 export const timeout = (ms: number) => new Promise((r) => setTimeout(r, ms))

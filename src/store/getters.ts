@@ -1,10 +1,13 @@
+import { GetterTree } from "vuex"
 import { State } from "@/types"
 
-export default {
-    encrypt: (state: State) => state.encrypt,
-    key: (state: State) => state.key,
-    result: (state: State) => state.result,
-    loading: (state: State) => state.loading,
-    sourceSelected: (state: State) => state.sourceSelected,
-    secretSelected: (state: State) => state.secretSelected,
+const getters: GetterTree<State, State> = {
+    encrypt: (state) => state.encrypt,
+    key: (state) => state.key,
+    result: (state) => state.result,
+    loading: (state) => state.loading,
+    sourceSelected: (state) => state.sourceSelected,
+    secretSelected: (state) => state.secretSelected,
 }
+
+export default getters

@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(class="ImageSelectorWrapper ImageBlock" :id="_id")
+    div(class="ImageSelectorWrapper" :id="_id")
         span(class="ImageBlock__title") {{ title }}
         InputTypeSwitch(@change="inputMode = $event")
         FileInput(v-if="isLoad" @change="src = $event" :_id="_id")
@@ -28,7 +28,7 @@ export default {
     }),
     computed: {
         isLoad: (vm) => vm.inputMode === "Load",
-        isSelected: (vm) => !!vm.src,
+        isSelected: (vm) => Boolean(vm.src),
     },
     watch: {
         inputMode() {

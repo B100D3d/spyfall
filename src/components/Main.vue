@@ -1,9 +1,9 @@
 <template lang="pug">
     main
-        ImageSelector(_id="Source" title="Исходное изображение")
+        ImageSelector(_id="Source" class="ImageBlock" title="Исходное изображение")
         transition(name="fade" mode="out-in")
-            Paint(v-if="encrypt" title="Сообщение")
-            ImageSelector(_id="Secret" title="Секретное изображение" v-else)
+            Paint(v-if="encrypt" class="ImageBlock" title="Сообщение")
+            ImageSelector(_id="Secret" class="ImageBlock" title="Секретное изображение" v-else)
         KeyInput
         SubmitButton
         Solution
