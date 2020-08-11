@@ -1,13 +1,18 @@
 <template lang="pug">
-    button(@click="setTheme")
+    button(@click="setTheme", :style="{ '--rotate': `${degree}deg` }")
 </template>
 
 <script>
 export default {
     name: "ThemeButton",
+    mounted() {
+        this.changeHTML()
+    },
     data() {
+        const theme = this.getThemeFromCookie() || "dark"
         return {
-            theme: this.getThemeFromCookie() || "dark",
+            theme,
+            degree: theme === "dark" ? 0 : 180,
         }
     },
     methods: {
@@ -20,6 +25,9 @@ export default {
         setTheme() {
             this.theme = this.theme === "light" ? "dark" : "light"
         },
+        rotateButton() {
+            this.degree += 180
+        },
         getThemeFromCookie: () =>
             document.cookie
                 .split(";")
@@ -28,11 +36,9 @@ export default {
                 .join()
                 .split("=")[1],
     },
-    mounted() {
-        this.changeHTML()
-    },
     watch: {
         theme() {
+            this.rotateButton()
             this.changeHTML()
             this.setCookie()
         },
@@ -42,7 +48,12 @@ export default {
 
 <style lang="sass" scoped>
 
+html[data-theme="light"]
+    button
+        --rotate: 180deg
+
 button
+    --rotate: 0deg
     width: 60px
     height: 60px
     padding: 0
@@ -50,8 +61,6 @@ button
     cursor: pointer
     background: url("../assets/themeButton.svg") no-repeat
     background-size: cover
+    transform: rotate(var(--rotate))
     transition: transform .5s ease
-
-html[data-theme = "light"] button
-    transform: rotate(180deg)
 </style>
