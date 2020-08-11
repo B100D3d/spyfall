@@ -10,6 +10,12 @@ import { mapGetters, mapActions } from "vuex"
 export default {
     name: "SubmitButton",
     components: { ModeText },
+    mounted() {
+        window.addEventListener("keypress", this.enterListener)
+    },
+    beforeDestroy() {
+        window.removeEventListener("keypress", this.enterListener)
+    },
     computed: {
         ...mapGetters(["key", "sourceSelected", "secretSelected", "encrypt"]),
         loading: {
@@ -30,6 +36,9 @@ export default {
         getSource: () => document.querySelector("#Source img"),
         getSecret: () => document.querySelector("#Secret img"),
         getMessage: () => document.querySelector("#message"),
+        enterListener(e) {
+            if (e.key === "Enter") this.handleClick()
+        },
         async handleClick() {
             const isValid = this.check()
             if (isValid) {
@@ -62,14 +71,14 @@ export default {
 
             const { sourceSelected, secretSelected } = this
 
-            const errors = []
+            const errors = new Set()
 
             if (!this.sourceSelected) {
-                errors.push("Выберите исходное изображение")
+                errors.add("Выберите исходное изображение")
             }
 
             if (decrypt && !this.secretSelected) {
-                errors.push("Выберите секретное изображение")
+                errors.add("Выберите секретное изображение")
             }
 
             if (
@@ -80,20 +89,23 @@ export default {
                     source.naturalHeight === secret.naturalHeight
                 )
             ) {
-                errors.push("Изображения должны иметь одинаковый размер")
+                errors.add("Изображения должны иметь одинаковый размер")
             }
 
             if (
-                (sourceSelected || secretSelected) &&
-                (source.naturalWidth < 380 ||
-                    source.naturalHeight < 380 ||
-                    secret?.naturalWidth < 380 ||
-                    secret?.naturalHeight < 380)
+                sourceSelected &&
+                (source.naturalWidth < 380 || source.naturalHeight < 380)
             ) {
-                errors.push("Минимальный размер изображения 380x380 px")
+                errors.add("Минимальный размер изображения 380x380 px")
+            }
+            if (
+                secretSelected &&
+                (secret?.naturalWidth < 380 || secret?.naturalHeight < 380)
+            ) {
+                errors.add("Минимальный размер изображения 380x380 px")
             }
 
-            if (errors.length) {
+            if (errors.size) {
                 errors.forEach((e) => this.$toast.error(e))
                 return false
             }
