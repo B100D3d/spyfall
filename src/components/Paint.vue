@@ -1,17 +1,21 @@
 <template lang="pug">
-    div(class="message ImageBlock")
+    div(class="message")
         span(class="ImageBlock__title") {{ title }}
         canvas(id="message" width="380" height="380")
         button(@click="wash")
 </template>
 
 <script>
+import { getDistanceFromTopOfScreen } from "@/utils"
+
 export default {
     name: "Paint",
     props: { title: String },
     data: () => ({
         canvas: null,
         ctx: null,
+        lastMobileX: null,
+        lastMobileY: null,
     }),
     mounted() {
         this.initCanvas()
@@ -35,17 +39,34 @@ export default {
 
             canvas.onmousemove = this.draw
             canvas.ontouchmove = this.draw
+            canvas.ontouchend = () => {
+                this.lastMobileY = null
+                this.lastMobileX = null
+            }
         },
         draw(e) {
-            const x = e.offsetX
-            const y = e.offsetY
-            const dx = e.movementX
-            const dy = e.movementY
+            e.preventDefault()
+            const x =
+                e.offsetX ?? e.changedTouches[0]?.clientX - e.target.offsetLeft
+            const y =
+                e.offsetY ??
+                e.changedTouches[0]?.clientY -
+                    getDistanceFromTopOfScreen(e.target)
+
+            const dx =
+                e.movementX ?? (this.lastMobileX ? x - this.lastMobileX : 0)
+            const dy =
+                e.movementY ?? (this.lastMobileY ? y - this.lastMobileY : 0)
+
+            if (e.type === "touchmove") {
+                this.lastMobileX = x
+                this.lastMobileY = y
+            }
 
             const { ctx } = this
             const color = Math.floor(Math.random() * 200) + 1
             ctx.strokeStyle = `rgb(${color}, ${color}, ${color})`
-            if (e.buttons > 0) {
+            if (e.buttons > 0 || e.changedTouches?.length > 0) {
                 ctx.beginPath()
                 ctx.moveTo(x, y)
                 ctx.lineTo(x - dx, y - dy)
@@ -63,7 +84,6 @@ export default {
     width: calc(380px + 20px)
     height: calc(380px + 70px)
 
-
     canvas
         background-color: white
 
@@ -73,7 +93,7 @@ export default {
         height: 50px
         padding: 0
         top: 60px
-        right: 0
+        right: 2px
         border: none
         cursor: pointer
         background: url("../assets/vacuum.svg") no-repeat
